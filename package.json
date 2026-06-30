@@ -1,6 +1,6 @@
 {
   "name": "joom",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Grabador de pantalla + webcam para macOS (pantalla completa, reel vertical, podcast) con barra de anotaciones para presentar",
   "main": "main.js",
   "author": "Jairo Carrizales <carribros@gmail.com>",

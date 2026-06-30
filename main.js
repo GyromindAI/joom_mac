@@ -1343,10 +1343,13 @@ function transcodeToMp4(input, output, onProgress) {
   );
 }
 
-// MP4 ya en H.264/AAC: solo reempaqueta (rápido, sin pérdida de calidad).
+// MP4 ya en H.264: copia el vídeo sin recodificar (rápido, sin pérdida) pero
+// SIEMPRE pasa el audio a AAC. MediaRecorder mete el audio en Opus aunque el
+// contenedor sea MP4, y iOS/iPhone NO reproduce audio Opus (Android, Mac, Windows
+// y YouTube sí). Re-encodear solo el audio garantiza que se oiga en todas partes.
 function remuxToMp4(input, output, onProgress) {
   return runFfmpeg(
-    ['-y', '-i', input, '-c', 'copy', '-movflags', '+faststart', output],
+    ['-y', '-i', input, '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', output],
     onProgress
   );
 }
